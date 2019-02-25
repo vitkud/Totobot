@@ -1,0 +1,87 @@
+{
+	"extensionName": "Totobot",
+	"description": "A Totobot Extension for Arduino",
+	"version": "0.0.1",
+	"author": "Vitaliy (vitkud@gmail.com)",
+	"homepage": "totoro.spb.ru",
+	"sort": 0,
+	"javascriptURL": "js/Totobot.js",
+	"firmware": "1.0",
+	"extensionPort": 0,
+	"blockSpecs": [
+		[
+			"w",
+			"move forward %n sec %d.speed",
+			"moveForward",
+			"1.0",
+			"SLOW",
+			{
+				"inc": "#include \"AFMotor.h\"\n",
+				"def": "AF_DCMotor motor1(1);\nAF_DCMotor motor2(2);\n",
+				"setup": "motor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
+				"work": "motor1.run(FORWARD);\nmotor1.setSpeed({1});\nmotor2.run(FORWARD);\nmotor2.setSpeed({1});\ndelay({0}*1000);\nmotor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
+				"loop": ""
+			}
+		],
+		[
+			"w",
+			"move backward %n sec %d.speed",
+			"moveBackward",
+			"1.0",
+			"SLOW",
+			{
+				"inc": "#include \"AFMotor.h\"\n",
+				"def": "AF_DCMotor motor1(1);\nAF_DCMotor motor2(2);\n",
+				"setup": "motor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
+				"work": "motor1.run(BACKWARD);\nmotor1.setSpeed({1});\nmotor2.run(BACKWARD);\nmotor2.setSpeed({1});\ndelay({0}*1000);\nmotor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
+				"loop": ""
+			}
+		],
+		[
+			"w",
+			"turn left %n sec %d.speed",
+			"turnLeft",
+			"1.0",
+			"SLOW",
+			{
+				"inc": "#include \"AFMotor.h\"\n",
+				"def": "AF_DCMotor motor1(1);\nAF_DCMotor motor2(2);\n",
+				"setup": "motor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
+				"work": "motor1.run(BACKWARD);\nmotor1.setSpeed({1});\nmotor2.run(FORWARD);\nmotor2.setSpeed({1});\ndelay({0}*1000);\nmotor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
+				"loop": ""
+			}
+		],
+		[
+			"w",
+			"turn right %n sec %d.speed",
+			"turnRight",
+			"1.0",
+			"SLOW",
+			{
+				"inc": "#include \"AFMotor.h\"\n",
+				"def": "AF_DCMotor motor1(1);\nAF_DCMotor motor2(2);\n",
+				"setup": "motor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
+				"work": "motor1.run(FORWARD);\nmotor1.setSpeed({1});\nmotor2.run(BACKWARD);\nmotor2.setSpeed({1});\ndelay({0}*1000);\nmotor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
+				"loop": ""
+			}
+		]
+	],
+	"menus": {
+		"speed": ["SLOW", "FAST"]
+	},
+	"values": {
+		"SLOW": 127,
+		"FAST": 255
+	},
+	"translators": {
+		"ru-RU": {
+			"Totobot Program": "Программа Тотобота",
+			"move forward %n sec %d.speed": "двигаться вперед %n сек., %d.speed",
+			"move backward %n sec %d.speed": "двигаться назад %n сек., %d.speed",
+			"turn left %n sec %d.speed": "поворачивать налево %n сек., %d.speed",
+			"turn right %n sec %d.speed": "поворачивать направо %n сек., %d.speed",
+			"SLOW": "МЕДЛЕННО",
+			"FAST": "БЫСТРО"
+		}
+	}
+}
