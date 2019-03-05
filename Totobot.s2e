@@ -1,7 +1,7 @@
 {
 	"extensionName": "Totobot",
 	"description": "A Totobot Extension for Arduino",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"author": "Vitaliy (vitkud@gmail.com)",
 	"homepage": "totoro.spb.ru",
 	"sort": 0,
@@ -64,14 +64,32 @@
 				"work": "motor1.run(FORWARD);\nmotor1.setSpeed({1});\nmotor2.run(BACKWARD);\nmotor2.setSpeed({1});\ndelay({0}*1000);\nmotor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
 				"loop": ""
 			}
+		],
+		[
+			"w",
+			"set motor %d.motorPort speed %d.motorSpeed",
+			"runMotor",
+			"LEFT",
+			0,
+			{
+				"inc": "#include \"AFMotor.h\"\n",
+				"def": "AF_DCMotor motor{0}({0});\n",
+				"setup": "",
+				"work": "motor{0}.run({1} > 0 ? FORWARD : {1} < 0 ? BACKWARD : RELEASE);\nmotor{0}.setSpeed({1} >= 0 ? {1} : -({1}));\n",
+				"loop": ""
+			}
 		]
 	],
 	"menus": {
-		"speed": ["SLOW", "FAST"]
+		"speed": ["SLOW", "FAST"],
+		"motorPort": ["LEFT", "RIGHT"],
+		"motorSpeed": [255, 100, 50, 0, -50, -100, -255]
 	},
 	"values": {
 		"SLOW": 127,
-		"FAST": 255
+		"FAST": 255,
+		"LEFT": 1,
+		"RIGHT": 2
 	},
 	"translators": {
 		"ru-RU": {
@@ -80,8 +98,11 @@
 			"move backward %n sec %d.speed": "двигаться назад %n сек., %d.speed",
 			"turn left %n sec %d.speed": "поворачивать налево %n сек., %d.speed",
 			"turn right %n sec %d.speed": "поворачивать направо %n сек., %d.speed",
+			"set motor %d.motorPort speed %d.motorSpeed": "установить мотор %d.motorPort скорость %d.motorSpeed",
 			"SLOW": "МЕДЛЕННО",
-			"FAST": "БЫСТРО"
+			"FAST": "БЫСТРО",
+			"LEFT": "ЛЕВЫЙ",
+			"RIGHT": "ПРАВЫЙ"
 		}
 	}
 }
