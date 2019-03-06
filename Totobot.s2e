@@ -1,7 +1,7 @@
 {
 	"extensionName": "Totobot",
 	"description": "A Totobot Extension for Arduino",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"author": "Vitaliy (vitkud@gmail.com)",
 	"homepage": "totoro.spb.ru",
 	"sort": 0,
@@ -11,15 +11,28 @@
 	"blockSpecs": [
 		[
 			"w",
+			"correction %n",
+			"setCorrection",
+			"0",
+			{
+				"inc": "",
+				"def": "int corr = 0;\n",
+				"setup": "",
+				"work": "corr = {0};\n",
+				"loop": ""
+			}
+		],
+		[
+			"w",
 			"move forward %n sec %d.speed",
 			"moveForward",
 			"1.0",
 			"SLOW",
 			{
 				"inc": "#include \"AFMotor.h\"\n",
-				"def": "AF_DCMotor motor1(1);\nAF_DCMotor motor2(2);\n",
+				"def": "AF_DCMotor motor1(1);\nAF_DCMotor motor2(2);\nint corr = 0;\n",
 				"setup": "motor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
-				"work": "motor1.run(FORWARD);\nmotor1.setSpeed({1});\nmotor2.run(FORWARD);\nmotor2.setSpeed({1});\ndelay({0}*1000);\nmotor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
+				"work": "motor1.run(FORWARD);\nmotor1.setSpeed({1}-(corr>0?corr:0));\nmotor2.run(FORWARD);\nmotor2.setSpeed({1}+(corr<0?corr:0));\ndelay({0}*1000);\nmotor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
 				"loop": ""
 			}
 		],
@@ -31,9 +44,9 @@
 			"SLOW",
 			{
 				"inc": "#include \"AFMotor.h\"\n",
-				"def": "AF_DCMotor motor1(1);\nAF_DCMotor motor2(2);\n",
+				"def": "AF_DCMotor motor1(1);\nAF_DCMotor motor2(2);\nint corr = 0;\n",
 				"setup": "motor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
-				"work": "motor1.run(BACKWARD);\nmotor1.setSpeed({1});\nmotor2.run(BACKWARD);\nmotor2.setSpeed({1});\ndelay({0}*1000);\nmotor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
+				"work": "motor1.run(BACKWARD);\nmotor1.setSpeed({1}-(corr>0?corr:0));\nmotor2.run(BACKWARD);\nmotor2.setSpeed({1}+(corr<0?corr:0));\ndelay({0}*1000);\nmotor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
 				"loop": ""
 			}
 		],
@@ -45,9 +58,9 @@
 			"SLOW",
 			{
 				"inc": "#include \"AFMotor.h\"\n",
-				"def": "AF_DCMotor motor1(1);\nAF_DCMotor motor2(2);\n",
+				"def": "AF_DCMotor motor1(1);\nAF_DCMotor motor2(2);\nint corr = 0;\n",
 				"setup": "motor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
-				"work": "motor1.run(BACKWARD);\nmotor1.setSpeed({1});\nmotor2.run(FORWARD);\nmotor2.setSpeed({1});\ndelay({0}*1000);\nmotor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
+				"work": "motor1.run(BACKWARD);\nmotor1.setSpeed({1}-(corr>0?corr:0));\nmotor2.run(FORWARD);\nmotor2.setSpeed({1}+(corr<0?corr:0));\ndelay({0}*1000);\nmotor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
 				"loop": ""
 			}
 		],
@@ -59,9 +72,9 @@
 			"SLOW",
 			{
 				"inc": "#include \"AFMotor.h\"\n",
-				"def": "AF_DCMotor motor1(1);\nAF_DCMotor motor2(2);\n",
+				"def": "AF_DCMotor motor1(1);\nAF_DCMotor motor2(2);\nint corr = 0;\n",
 				"setup": "motor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
-				"work": "motor1.run(FORWARD);\nmotor1.setSpeed({1});\nmotor2.run(BACKWARD);\nmotor2.setSpeed({1});\ndelay({0}*1000);\nmotor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
+				"work": "motor1.run(FORWARD);\nmotor1.setSpeed({1}-(corr>0?corr:0));\nmotor2.run(BACKWARD);\nmotor2.setSpeed({1}+(corr<0?corr:0));\ndelay({0}*1000);\nmotor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
 				"loop": ""
 			}
 		],
@@ -94,6 +107,7 @@
 	"translators": {
 		"ru-RU": {
 			"Totobot Program": "Программа Тотобота",
+			"correction %n": "поправка %n",
 			"move forward %n sec %d.speed": "двигаться вперед %n сек., %d.speed",
 			"move backward %n sec %d.speed": "двигаться назад %n сек., %d.speed",
 			"turn left %n sec %d.speed": "поворачивать налево %n сек., %d.speed",

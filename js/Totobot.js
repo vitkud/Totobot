@@ -16,6 +16,10 @@
 	ext.resetAll = function () {
 	};
 
+	ext.setCorrection = function (corr) {
+		// TODO: device.send(...)
+	};
+	
 	ext.moveForward = function (duration, speed) {
 		// TODO: device.send(...)
 	};
