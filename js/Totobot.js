@@ -9,8 +9,8 @@
 	};
 
 	var motorPorts = {
-		LEFT: 1,
-		RIGHT: 2
+		LEFT: 0,
+		RIGHT: 1
 	}
 
 	ext.resetAll = function () {
@@ -40,8 +40,12 @@
 		if (typeof port == "string") {
 			port = motorPorts[port];
 		}
-		runPackage(90, port, short2array(speed));
+		runPackage(90, port + 1, short2array(speed));
     };
+
+	ext.setEyeEffect = function (eye, effect) {
+		// TODO: device.send(...)
+	};
 
 	function sendPackage(argList, type) {
 		var bytes = [0xff, 0x55, 0, 0, type];

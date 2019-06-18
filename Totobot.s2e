@@ -15,10 +15,10 @@
 			"setCorrection",
 			"0",
 			{
-				"inc": "",
-				"def": "int corr = 0;\n",
-				"setup": "",
-				"work": "corr = {0};\n",
+				"inc": "#include \"TotobotCore.h\"\n",
+				"def": "",
+				"setup": "totobot.init();\n",
+				"work": "totobot.setCorrection({0});\n",
 				"loop": ""
 			}
 		],
@@ -29,10 +29,10 @@
 			"1.0",
 			"SLOW",
 			{
-				"inc": "#include \"AFMotor.h\"\n",
-				"def": "AF_DCMotor motor1(1);\nAF_DCMotor motor2(2);\nint corr = 0;\n",
-				"setup": "motor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
-				"work": "motor1.run(FORWARD);\nmotor1.setSpeed({1}-(corr>0?corr:0));\nmotor2.run(FORWARD);\nmotor2.setSpeed({1}+(corr<0?corr:0));\ndelay({0}*1000);\nmotor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
+				"inc": "#include \"TotobotCore.h\"\n",
+				"def": "",
+				"setup": "totobot.init();\n",
+				"work": "totobot.moveForward({0}, {1});\n",
 				"loop": ""
 			}
 		],
@@ -43,10 +43,10 @@
 			"1.0",
 			"SLOW",
 			{
-				"inc": "#include \"AFMotor.h\"\n",
-				"def": "AF_DCMotor motor1(1);\nAF_DCMotor motor2(2);\nint corr = 0;\n",
-				"setup": "motor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
-				"work": "motor1.run(BACKWARD);\nmotor1.setSpeed({1}-(corr>0?corr:0));\nmotor2.run(BACKWARD);\nmotor2.setSpeed({1}+(corr<0?corr:0));\ndelay({0}*1000);\nmotor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
+				"inc": "#include \"TotobotCore.h\"\n",
+				"def": "",
+				"setup": "totobot.init();\n",
+				"work": "totobot.moveBackward({0}, {1});\n",
 				"loop": ""
 			}
 		],
@@ -57,10 +57,10 @@
 			"1.0",
 			"SLOW",
 			{
-				"inc": "#include \"AFMotor.h\"\n",
-				"def": "AF_DCMotor motor1(1);\nAF_DCMotor motor2(2);\nint corr = 0;\n",
-				"setup": "motor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
-				"work": "motor1.run(BACKWARD);\nmotor1.setSpeed({1}-(corr>0?corr:0));\nmotor2.run(FORWARD);\nmotor2.setSpeed({1}+(corr<0?corr:0));\ndelay({0}*1000);\nmotor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
+				"inc": "#include \"TotobotCore.h\"\n",
+				"def": "",
+				"setup": "totobot.init();\n",
+				"work": "totobot.turnLeft({0}, {1});\n",
 				"loop": ""
 			}
 		],
@@ -71,10 +71,10 @@
 			"1.0",
 			"SLOW",
 			{
-				"inc": "#include \"AFMotor.h\"\n",
-				"def": "AF_DCMotor motor1(1);\nAF_DCMotor motor2(2);\nint corr = 0;\n",
-				"setup": "motor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
-				"work": "motor1.run(FORWARD);\nmotor1.setSpeed({1}-(corr>0?corr:0));\nmotor2.run(BACKWARD);\nmotor2.setSpeed({1}+(corr<0?corr:0));\ndelay({0}*1000);\nmotor1.run(RELEASE);\nmotor2.run(RELEASE);\n",
+				"inc": "#include \"TotobotCore.h\"\n",
+				"def": "",
+				"setup": "totobot.init();\n",
+				"work": "totobot.turnRight({0}, {1});\n",
 				"loop": ""
 			}
 		],
@@ -85,10 +85,24 @@
 			"LEFT",
 			0,
 			{
-				"inc": "#include \"AFMotor.h\"\n",
-				"def": "AF_DCMotor motor{0}({0});\n",
-				"setup": "",
-				"work": "motor{0}.run({1} > 0 ? FORWARD : {1} < 0 ? BACKWARD : RELEASE);\nmotor{0}.setSpeed({1} >= 0 ? {1} : -({1}));\n",
+				"inc": "#include \"TotobotCore.h\"\n",
+				"def": "",
+				"setup": "totobot.init();\n",
+				"work": "totobot.runMotor({0}, {1});\n",
+				"loop": ""
+			}
+		],
+		[
+			"w",
+			"set eye %d.eye effect %d.effect",
+			"setEyeEffect",
+			"LEFT",
+			"none",
+			{
+				"inc": "#include \"TotobotCore.h\"\n",
+				"def": "",
+				"setup": "totobot.init();\n",
+				"work": "totobot.setEyeEffect({0}, {1});\n",
 				"loop": ""
 			}
 		]
@@ -96,13 +110,18 @@
 	"menus": {
 		"speed": ["SLOW", "FAST"],
 		"motorPort": ["LEFT", "RIGHT"],
-		"motorSpeed": [255, 100, 50, 0, -50, -100, -255]
+		"eye": ["LEFT", "RIGHT"],
+		"motorSpeed": [255, 100, 50, 0, -50, -100, -255],
+		"effect": ["none", "snow", "matrix"]
 	},
 	"values": {
 		"SLOW": 127,
 		"FAST": 255,
-		"LEFT": 1,
-		"RIGHT": 2
+		"LEFT": 0,
+		"RIGHT": 1,
+		"none": 0,
+		"snow": 2,
+		"matrix": 7
 	},
 	"translators": {
 		"ru-RU": {
@@ -113,6 +132,7 @@
 			"turn left %n sec %d.speed": "поворачивать налево %n сек., %d.speed",
 			"turn right %n sec %d.speed": "поворачивать направо %n сек., %d.speed",
 			"set motor %d.motorPort speed %d.motorSpeed": "установить мотор %d.motorPort скорость %d.motorSpeed",
+			"set eye %d.eye effect %d.effect": "установить для глаза %d.eye эффект %d.effect",
 			"SLOW": "МЕДЛЕННО",
 			"FAST": "БЫСТРО",
 			"LEFT": "ЛЕВЫЙ",
