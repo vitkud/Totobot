@@ -8,10 +8,6 @@
 
 #include "Arduino.h"
 
-#include "AFMotor.h"
-#include "TimerOne.h"
-#include "FastLED.h"
-
 #define BRIGHTNESS 3 // (0-255)
 #define CURRENT_LIMIT 600
 #define WIDTH 4
@@ -24,27 +20,20 @@
 
 class Totobot {
 public:
-	Totobot();
+	static void init();
 
-	void init();
-
-	void setCorrection(int value);
-	void moveForward(int duration, byte speed);
-	void moveBackward(int duration, byte speed);
-	void turnLeft(int duration, byte speed);
-	void turnRight(int duration, byte speed);
-	void runMotor(int port, int speed);
+	static void setCorrection(int value);
+	static void moveForward(int duration, byte speed);
+	static void moveBackward(int duration, byte speed);
+	static void turnLeft(int duration, byte speed);
+	static void turnRight(int duration, byte speed);
+	static void runMotor(int port, int speed);
 
 	void setEyeEffect(int eye, int effect);
 
 private:
 	static void timer();
-	int corr = 0;
-	AF_DCMotor motor[2] = {1, 2};
-
-	volatile boolean eyeLoadingFlag[2];
-	volatile int eyeEffects[2];
-	static void updateEffect(int eye, int effect, boolean loadingFlag);
+	static void updateEffect(int eye, int effect, bool loadingFlag);
 };
 
 extern Totobot totobot;

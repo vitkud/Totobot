@@ -4,21 +4,27 @@
 	Used effects from https://github.com/AlexGyver/GyverMatrixBT/
 */
 
-#include "TotobotCore.h"
+#include "Totobot.h"
+#include "AFMotor.h"
+#include "TimerOne.h"
+#include "FastLED.h"
 
 Totobot totobot;
 
 CRGB leds[NUM_LEDS];
 
+int corr = 0;
+AF_DCMotor motor[2] = {1, 2};
+
+volatile bool eyeLoadingFlag[2];
+volatile int eyeEffects[2];
+
 void Totobot::timer() {
 	for (int i = 0; i < 2; ++i) {
-		updateEffect(i, totobot.eyeEffects[i], totobot.eyeLoadingFlag[i]);
-		totobot.eyeLoadingFlag[i] = false;
+		updateEffect(i, eyeEffects[i], eyeLoadingFlag[i]);
+		eyeLoadingFlag[i] = false;
 	}
 	FastLED.show(); 
-}
-
-Totobot::Totobot() {
 }
 
 void Totobot::init() {
