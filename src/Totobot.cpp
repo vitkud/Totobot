@@ -18,7 +18,7 @@ byte buffer[52];
 byte index = 0;
 byte dataLen;
 
-CRGB leds[TOTAL_LEDS];
+CRGB leds[EYE_TOTAL_LEDS];
 
 int corr = 0;
 AF_DCMotor motor[2] = {1, 2};
@@ -40,9 +40,9 @@ void Totobot::init() {
 	motor[0].run(RELEASE);
 	motor[1].run(RELEASE);
 
-	FastLED.addLeds<WS2812, EYE_PIN, GRB>(leds, TOTAL_LEDS);
-	FastLED.setBrightness(BRIGHTNESS);
-	if (CURRENT_LIMIT > 0) FastLED.setMaxPowerInVoltsAndMilliamps(5, CURRENT_LIMIT);
+	FastLED.addLeds<WS2812, EYE_PIN, GRB>(leds, EYE_TOTAL_LEDS);
+	FastLED.setBrightness(EYE_BRIGHTNESS);
+	if (EYE_CURRENT_LIMIT > 0) FastLED.setMaxPowerInVoltsAndMilliamps(5, EYE_CURRENT_LIMIT);
 	FastLED.clear();
 	FastLED.show();
 
@@ -134,7 +134,6 @@ void Totobot::setEyeEffect(int eye, int effect) {
 	eyeLoadingFlag[eye] = true;
 }
 
-
 /*
 ff 55 len idx action device port  slot  data a
 0  1  2   3   4      5      6     7     8
@@ -172,7 +171,7 @@ void Totobot::parseData() {
 void Totobot::runModule(byte device) {
 	byte pin = readBuffer(6);
 	switch (device) {
-	case MOTOR:	case TO_MOTOR: {
+	case MOTOR:	{
 		byte port = readBuffer(6);
 		short speed = readShort(7);
 		runMotor(port, speed);
@@ -192,6 +191,11 @@ void Totobot::runModule(byte device) {
 		pinMode(pin, OUTPUT);
 		byte val = readBuffer(7);
 		analogWrite(pin, val);
+	} break;
+	case TO_MOTOR: {
+		byte port = readBuffer(6);
+		short speed = readShort(7);
+		runMotor(port - 1, speed);
 	} break;
 	}
 }
@@ -322,10 +326,10 @@ void Totobot::sendString(String s) {
 	}
 }
 
-#define _WIDTH WIDTH
+#define _WIDTH EYE_WIDTH
 // #define THIS_X x
-// #define THIS_Y (HEIGHT - y - 1)
-#define THIS_X (WIDTH - x - 1)
+// #define THIS_Y (EYE_HEIGHT - y - 1)
+#define THIS_X (EYE_WIDTH - x - 1)
 #define THIS_Y y
 
 uint16_t getPixelNumber(int eye, int8_t x, int8_t y) {
@@ -337,13 +341,13 @@ uint16_t getPixelNumber(int eye, int8_t x, int8_t y) {
 }
 
 void drawPixelXY(int eye, int8_t x, int8_t y, CRGB color) {
-	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+	if (x < 0 || x >= EYE_WIDTH || y < 0 || y >= EYE_HEIGHT)
 		return;
 	leds[getPixelNumber(eye, x, y)] = color;
 }
 
 uint32_t getPixColor(int pixelNumber) {
-	if (pixelNumber < 0 || pixelNumber >= TOTAL_LEDS)
+	if (pixelNumber < 0 || pixelNumber >= EYE_TOTAL_LEDS)
 		return 0;
 	return (((uint32_t)leds[pixelNumber].r << 16) |
 	        ((long)leds[pixelNumber].g << 8) |
@@ -362,17 +366,17 @@ void noneRoutine(int eye, boolean loadingFlag) {
 }
 
 void snowRoutine(int eye, boolean loadingFlag) {
-	for (byte x = 0; x < WIDTH; x++) {
-		for (byte y = 0; y < HEIGHT - 1; y++) {
+	for (byte x = 0; x < EYE_WIDTH; x++) {
+		for (byte y = 0; y < EYE_HEIGHT - 1; y++) {
 			drawPixelXY(eye, x, y, getPixColorXY(eye, x, y + 1));
 		}
 	}
 
-	for (byte x = 0; x < WIDTH; x++) {
-		if (getPixColorXY(eye, x, HEIGHT - 2) == 0 && (random(0, SNOW_DENSE) == 0))
-			drawPixelXY(eye, x, HEIGHT - 1, 0xE0FFFF - 0x101010 * random(0, 4));
+	for (byte x = 0; x < EYE_WIDTH; x++) {
+		if (getPixColorXY(eye, x, EYE_HEIGHT - 2) == 0 && (random(0, EYE_SNOW_DENSE) == 0))
+			drawPixelXY(eye, x, EYE_HEIGHT - 1, 0xE0FFFF - 0x101010 * random(0, 4));
 		else
-			drawPixelXY(eye, x, HEIGHT - 1, 0x000000);
+			drawPixelXY(eye, x, EYE_HEIGHT - 1, 0x000000);
 	}
 }
 
@@ -380,9 +384,9 @@ void testRoutine(int eye, boolean loadingFlag) {
 	static int x = 0;
 	static int y = 0;
 	drawPixelXY(eye, x, y, 0x000000);
-	if (++x == WIDTH) {
+	if (++x == EYE_WIDTH) {
 		x = 0;
-		if (++y == HEIGHT)
+		if (++y == EYE_HEIGHT)
 			y = 0;
 	}
 	drawPixelXY(eye, x, y, 0x00FF00);
@@ -392,18 +396,18 @@ void matrixRoutine(int eye, boolean loadingFlag) {
 	if (loadingFlag)
 		noneRoutine(eye, loadingFlag);
 
-	for (byte x = 0; x < WIDTH; x++) {
-		uint32_t thisColor = getPixColorXY(eye, x, HEIGHT - 1);
+	for (byte x = 0; x < EYE_WIDTH; x++) {
+		uint32_t thisColor = getPixColorXY(eye, x, EYE_HEIGHT - 1);
 		if (thisColor == 0)
-			drawPixelXY(eye, x, HEIGHT - 1, 0x00FF00 * (random(0, 10) == 0));
+			drawPixelXY(eye, x, EYE_HEIGHT - 1, 0x00FF00 * (random(0, 10) == 0));
 		else if (thisColor < 0x002000)
-			drawPixelXY(eye, x, HEIGHT - 1, 0);
+			drawPixelXY(eye, x, EYE_HEIGHT - 1, 0);
 		else
-			drawPixelXY(eye, x, HEIGHT - 1, thisColor - 0x002000);
+			drawPixelXY(eye, x, EYE_HEIGHT - 1, thisColor - 0x002000);
 	}
 
-	for (byte x = 0; x < WIDTH; x++) {
-		for (byte y = 0; y < HEIGHT - 1; y++) {
+	for (byte x = 0; x < EYE_WIDTH; x++) {
+		for (byte y = 0; y < EYE_HEIGHT - 1; y++) {
 			drawPixelXY(eye, x, y, getPixColorXY(eye, x, y + 1));
 		}
 	}

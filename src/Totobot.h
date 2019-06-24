@@ -18,15 +18,15 @@
 
 // Eyes
 #define EYE_PIN A0
-#define BRIGHTNESS 3 // (0-255)
-#define CURRENT_LIMIT 600
-#define WIDTH 4
-#define HEIGHT 4
-#define EYE_LEDS 16 // WIDTH * HEIGHT
-#define TOTAL_LEDS 32 // EYE_LEDS * 2
+#define EYE_BRIGHTNESS 3 // (0-255)
+#define EYE_CURRENT_LIMIT 600
+#define EYE_WIDTH 4
+#define EYE_HEIGHT 4
+#define EYE_LEDS 16 // EYE_WIDTH * EYE_HEIGHT
+#define EYE_COUNT 2
+#define EYE_TOTAL_LEDS 32 // EYE_LEDS * EYE_COUNT
 
-#define SNOW_DENSE 10
-
+#define EYE_SNOW_DENSE 10
 
 // actions
 #define GET 1
@@ -44,6 +44,7 @@
 #define ULTRASONIC_ARDUINO 36
 #define PULSEIN 37
 #define LEDMATRIX 41
+
 #define TO_MOTOR 90
 
 class Totobot {

@@ -3,12 +3,30 @@
 (function (ext) {
 	var device = null;
 
+	var devices = {
+		VERSION: 0,
+		JOYSTICK: 5,
+		MOTOR: 10,
+		DIGITAL: 30,
+		ANALOG: 31,
+		PWM: 32,
+		ULTRASONIC_ARDUINO: 36,
+		PULSEIN: 37,
+		LEDMATRIX: 41,
+		TO_MOTOR: 90
+	};
+
 	var speeds = {
 		SLOW: 127,
 		FAST: 255
 	};
 
 	var motorPorts = {
+		LEFT: 0,
+		RIGHT: 1
+	}
+
+	var eyes = {
 		LEFT: 0,
 		RIGHT: 1
 	}
@@ -40,7 +58,7 @@
 		if (typeof port == "string") {
 			port = motorPorts[port];
 		}
-		runPackage(90, port + 1, short2array(speed));
+		runPackage(devices.MOTOR, port, short2array(speed));
     };
 
 	ext.setEyeEffect = function (eye, effect) {
