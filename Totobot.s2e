@@ -10,14 +10,26 @@
 	"extensionPort": 0,
 	"blockSpecs": [
 		[
+			"h",
+			"Totobot Program",
+			"runArduino",
+			{
+				"src": "Totobot",
+				"inc": "#include \"Totobot.h\"\n",
+				"def": "",
+				"setup": "totobot.init();\n",
+				"loop": "totobot.loop();\n"
+			}
+		],
+		[
 			"w",
 			"correction %n",
 			"setCorrection",
 			"0",
 			{
-				"inc": "#include \"TotobotCore.h\"\n",
+				"inc": "",
 				"def": "",
-				"setup": "totobot.init();\n",
+				"setup": "",
 				"work": "totobot.setCorrection({0});\n",
 				"loop": ""
 			}
@@ -29,9 +41,9 @@
 			"1.0",
 			"SLOW",
 			{
-				"inc": "#include \"TotobotCore.h\"\n",
+				"inc": "",
 				"def": "",
-				"setup": "totobot.init();\n",
+				"setup": "",
 				"work": "totobot.moveForward({0}, {1});\n",
 				"loop": ""
 			}
@@ -43,9 +55,9 @@
 			"1.0",
 			"SLOW",
 			{
-				"inc": "#include \"TotobotCore.h\"\n",
+				"inc": "",
 				"def": "",
-				"setup": "totobot.init();\n",
+				"setup": "",
 				"work": "totobot.moveBackward({0}, {1});\n",
 				"loop": ""
 			}
@@ -57,9 +69,9 @@
 			"1.0",
 			"SLOW",
 			{
-				"inc": "#include \"TotobotCore.h\"\n",
+				"inc": "",
 				"def": "",
-				"setup": "totobot.init();\n",
+				"setup": "",
 				"work": "totobot.turnLeft({0}, {1});\n",
 				"loop": ""
 			}
@@ -71,7 +83,7 @@
 			"1.0",
 			"SLOW",
 			{
-				"inc": "#include \"TotobotCore.h\"\n",
+				"inc": "",
 				"def": "",
 				"setup": "totobot.init();\n",
 				"work": "totobot.turnRight({0}, {1});\n",
@@ -85,9 +97,9 @@
 			"LEFT",
 			0,
 			{
-				"inc": "#include \"TotobotCore.h\"\n",
+				"inc": "",
 				"def": "",
-				"setup": "totobot.init();\n",
+				"setup": "",
 				"work": "totobot.runMotor({0}, {1});\n",
 				"loop": ""
 			}
@@ -99,9 +111,9 @@
 			"LEFT",
 			"none",
 			{
-				"inc": "#include \"TotobotCore.h\"\n",
+				"inc": "",
 				"def": "",
-				"setup": "totobot.init();\n",
+				"setup": "",
 				"work": "totobot.setEyeEffect({0}, {1});\n",
 				"loop": ""
 			}

@@ -34,6 +34,10 @@
 	ext.resetAll = function () {
 	};
 
+	ext.runArduino = function() {
+		responseValue();
+	};
+
 	ext.setCorrection = function (corr) {
 		// TODO: device.send(...)
 	};
