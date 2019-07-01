@@ -21,6 +21,8 @@
 #define LEDMATRIX 41
 
 #define TO_MOTOR 90
+#define TO_SET_CORRECTION 91
+#define TO_EYE_EFFECT 92
 
 class TotobotOnlineListener {
 public:

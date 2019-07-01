@@ -16,20 +16,8 @@ const int analogs[] = {A0, A1, A2, A3, A4, A5, A6, A7};
 #define BUZZER_PIN A1
 
 // Constants
-#define LEFT 0
-#define RIGHT 1
-
-// Eyes
-#define EYE_PIN A0
-#define EYE_BRIGHTNESS 3 // (0-255)
-#define EYE_CURRENT_LIMIT 600
-#define EYE_WIDTH 4
-#define EYE_HEIGHT 4
-#define EYE_LEDS 16 // EYE_WIDTH * EYE_HEIGHT
-#define EYE_COUNT 2
-#define EYE_TOTAL_LEDS 32 // EYE_LEDS * EYE_COUNT
-
-#define EYE_SNOW_DENSE 10
+#define LEFT_MOTOR 1
+#define RIGHT_MOTOR 2
 
 class Totobot {
 public:
@@ -37,18 +25,17 @@ public:
 	static void loop();
 
 	static void reset();
-	static void setCorrection(int value);
+	static void setCorrection(short value);
 	static void moveForward(int duration, byte speed);
 	static void moveBackward(int duration, byte speed);
 	static void turnLeft(int duration, byte speed);
 	static void turnRight(int duration, byte speed);
-	static void runMotor(int port, short speed);
+	static void runMotor(byte number, short speed);
 
-	void setEyeEffect(int eye, int effect);
+	static void setEyeEffect(byte eye, int effect);
 
 private:
 	static void timer();
-	static void updateEffect(int eye, int effect, bool loadingFlag);
 };
 
 extern Totobot totobot;

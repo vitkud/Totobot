@@ -69,7 +69,7 @@ void TotobotOnlineListener::parseData() {
 void TotobotOnlineListener::runModule(byte device) {
 	byte pin = readBuffer(6);
 	switch (device) {
-	case MOTOR:	{
+	case MOTOR:	case TO_MOTOR: {
 		byte port = readBuffer(6);
 		short speed = readShort(7);
 		totobot.runMotor(port, speed);
@@ -77,8 +77,8 @@ void TotobotOnlineListener::runModule(byte device) {
 	case JOYSTICK: {
 		int leftSpeed = readShort(6);
 		int rightSpeed = readShort(8);
-		totobot.runMotor(LEFT, leftSpeed);
-		totobot.runMotor(RIGHT, rightSpeed);
+		totobot.runMotor(LEFT_MOTOR, leftSpeed);
+		totobot.runMotor(RIGHT_MOTOR, rightSpeed);
 	} break;
 	case DIGITAL: {
 		pinMode(pin, OUTPUT);
@@ -90,10 +90,14 @@ void TotobotOnlineListener::runModule(byte device) {
 		byte val = readBuffer(7);
 		analogWrite(pin, val);
 	} break;
-	case TO_MOTOR: {
-		byte port = readBuffer(6);
-		short speed = readShort(7);
-		totobot.runMotor(port - 1, speed);
+	case TO_SET_CORRECTION: {
+		short corr = readShort(6);
+		totobot.setCorrection(corr);
+	}
+	case TO_EYE_EFFECT: {
+		byte eye = readBuffer(6);
+		short effect = readShort(7);
+		totobot.setEyeEffect(eye, effect);
 	} break;
 	}
 }

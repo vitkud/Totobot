@@ -94,7 +94,7 @@
 			"w",
 			"set motor %d.motorPort speed %d.motorSpeed",
 			"runMotor",
-			"LEFT",
+			"LEFT_MOTOR",
 			0,
 			{
 				"inc": "",
@@ -106,9 +106,9 @@
 		],
 		[
 			"w",
-			"set eye %d.eye effect %d.effect",
+			"%d.eye run effect %d.effect",
 			"setEyeEffect",
-			"LEFT",
+			"right eye",
 			"none",
 			{
 				"inc": "",
@@ -121,16 +121,18 @@
 	],
 	"menus": {
 		"speed": ["SLOW", "FAST"],
-		"motorPort": ["LEFT", "RIGHT"],
-		"eye": ["LEFT", "RIGHT"],
+		"motorPort": ["LEFT_MOTOR", "RIGHT_MOTOR"],
+		"eye": ["right eye", "left eye"],
 		"motorSpeed": [255, 100, 50, 0, -50, -100, -255],
 		"effect": ["none", "snow", "matrix"]
 	},
 	"values": {
 		"SLOW": 127,
 		"FAST": 255,
-		"LEFT": 0,
-		"RIGHT": 1,
+		"LEFT_MOTOR": 1,
+		"RIGHT_MOTOR": 2,
+		"right eye": 0,
+		"left eye": 1,
 		"none": 0,
 		"snow": 2,
 		"matrix": 7
@@ -144,11 +146,13 @@
 			"turn left %n sec %d.speed": "поворачивать налево %n сек., %d.speed",
 			"turn right %n sec %d.speed": "поворачивать направо %n сек., %d.speed",
 			"set motor %d.motorPort speed %d.motorSpeed": "установить мотор %d.motorPort скорость %d.motorSpeed",
-			"set eye %d.eye effect %d.effect": "установить для глаза %d.eye эффект %d.effect",
+			"%d.eye run effect %d.effect": "%d.eye запустить эффект %d.effect",
 			"SLOW": "МЕДЛЕННО",
 			"FAST": "БЫСТРО",
-			"LEFT": "ЛЕВЫЙ",
-			"RIGHT": "ПРАВЫЙ"
+			"LEFT_MOTOR": "ЛЕВЫЙ_МОТОР",
+			"RIGHT_MOTOR": "ПРАВЫЙ_МОТОР",
+			"right eye": "правый глаз",
+			"left eye": "левый глаз"
 		}
 	}
 }

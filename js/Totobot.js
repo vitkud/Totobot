@@ -13,7 +13,9 @@
 		ULTRASONIC_ARDUINO: 36,
 		PULSEIN: 37,
 		LEDMATRIX: 41,
-		TO_MOTOR: 90
+		TO_MOTOR: 90,
+		TO_SET_CORRECTION: 91,
+		TO_EYE_EFFECT: 92
 	};
 
 	var speeds = {
@@ -22,14 +24,16 @@
 	};
 
 	var motorPorts = {
-		LEFT: 0,
-		RIGHT: 1
+		LEFT_MOTOR: 1,
+		RIGHT_MOTOR: 2
 	}
 
 	var eyes = {
-		LEFT: 0,
-		RIGHT: 1
+		"right eye": 0,
+		"left eye": 1
 	}
+
+	var effects = { "none": 0, "snow": 2, "matrix": 7 }
 
 	ext.resetAll = function () {
 	};
@@ -39,13 +43,13 @@
 	};
 
 	ext.setCorrection = function (corr) {
-		// TODO: device.send(...)
+		runPackage(devices.TO_SET_CORRECTION, short2array(corr));
 	};
-	
+
 	ext.moveForward = function (duration, speed) {
 		// TODO: device.send(...)
 	};
-	
+
 	ext.moveBackward = function (duration, speed) {
 		// TODO: device.send(...)
 	};
@@ -66,7 +70,13 @@
     };
 
 	ext.setEyeEffect = function (eye, effect) {
-		// TODO: device.send(...)
+		if (typeof eye == "string") {
+			eye = eyes[eye];
+		}
+		if (typeof effect == "string") {
+			effect = effects[effect];
+		}
+		runPackage(devices.TO_EYE_EFFECT, eye, short2array(effect));
 	};
 
 	function sendPackage(argList, type) {
