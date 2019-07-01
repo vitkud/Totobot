@@ -1,6 +1,8 @@
 #ifndef TotobotFace_h
 #define TotobotFace_h
 
+#include <Arduino.h>
+
 // Eyes
 #define EYE_PIN A0
 #define EYE_BRIGHTNESS 3 // (0-255)

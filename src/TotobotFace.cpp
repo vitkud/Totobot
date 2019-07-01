@@ -27,11 +27,14 @@ void TotobotFace::init() {
 }
 
 void TotobotFace::loop() {
+	bool needRefresh = false;
 	for (int i = 0; i < EYE_COUNT; ++i) {
+		needRefresh = needRefresh || eyeEffects[i] != 0 || eyeLoadingFlag[i];
 		updateEffect(i, eyeEffects[i], eyeLoadingFlag[i]);
 		eyeLoadingFlag[i] = false;
 	}
-	FastLED.show(); 
+	if (needRefresh)
+		FastLED.show();
 }
 
 void TotobotFace::setEyeEffect(byte eye, short effect) {
