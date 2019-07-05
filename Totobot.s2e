@@ -1,7 +1,7 @@
 {
 	"extensionName": "Totobot",
 	"description": "A Totobot Extension for Arduino",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"author": "Vitaliy (vitkud@gmail.com)",
 	"homepage": "totoro.spb.ru",
 	"sort": 0,
@@ -10,127 +10,69 @@
 	"extensionPort": 0,
 	"blockSpecs": [
 		[
-			"h",
-			"Totobot Program",
+			"h", "Totobot Program",
 			"runArduino",
-			{
-				"src": "Totobot",
-				"inc": "#include \"Totobot.h\"\n",
-				"def": "",
-				"setup": "totobot.init();\n",
-				"loop": "totobot.loop();\n"
-			}
+			{ "src": "Totobot", "inc": "#include \"Totobot.h\"\n", "def": "", "setup": "totobot.init();\n", "loop": "totobot.loop();\n" }
 		],
 		[
-			"w",
-			"correction %n",
-			"setCorrection",
-			"0",
-			{
-				"inc": "",
-				"def": "",
-				"setup": "",
-				"work": "totobot.setCorrection({0});\n",
-				"loop": ""
-			}
+			"w", "move forward at power %n % for %n secs",
+			"moveForward", "50", "1",
+			{ "inc": "", "def": "", "setup": "", "work": "totobot.move(MOVE_FORWARD, {0} * 255 / 100);\n_delay({1});\ntotobot.move(MOVE_FORWARD, 0);\n", "loop": "" }
 		],
 		[
-			"w",
-			"move forward %n sec %d.speed",
-			"moveForward",
-			"1.0",
-			"SLOW",
-			{
-				"inc": "",
-				"def": "",
-				"setup": "",
-				"work": "totobot.moveForward({0}, {1});\n",
-				"loop": ""
-			}
+			"w", "move backward at power %n % for %n secs",
+			"moveBackward", "50", "1",
+			{ "inc": "", "def": "", "setup": "", "work": "totobot.move(MOVE_BACKWARD, {0} * 255 / 100);\n_delay({1});\ntotobot.move(MOVE_BACKWARD, 0);\n", "loop": "" }
 		],
 		[
-			"w",
-			"move backward %n sec %d.speed",
-			"moveBackward",
-			"1.0",
-			"SLOW",
-			{
-				"inc": "",
-				"def": "",
-				"setup": "",
-				"work": "totobot.moveBackward({0}, {1});\n",
-				"loop": ""
-			}
+			"w", "turn left at power %n % for %n secs",
+			"turnLeft", "50", "1",
+			{ "inc": "", "def": "", "setup": "", "work": "totobot.move(TURN_LEFT, {0} * 255 / 100);\n_delay({1});\ntotobot.move(TURN_LEFT, 0);\n", "loop": "" }
 		],
 		[
-			"w",
-			"turn left %n sec %d.speed",
-			"turnLeft",
-			"1.0",
-			"SLOW",
-			{
-				"inc": "",
-				"def": "",
-				"setup": "",
-				"work": "totobot.turnLeft({0}, {1});\n",
-				"loop": ""
-			}
+			"w", "turn right at power %n % for %n secs",
+			"turnRight", "50", "1",
+			{ "inc": "", "def": "", "setup": "", "work": "totobot.move(TURN_RIGHT, {0} * 255 / 100);\n_delay({1});\ntotobot.move(TURN_RIGHT, 0);\n", "loop": "" }
 		],
 		[
-			"w",
-			"turn right %n sec %d.speed",
-			"turnRight",
-			"1.0",
-			"SLOW",
-			{
-				"inc": "",
-				"def": "",
-				"setup": "totobot.init();\n",
-				"work": "totobot.turnRight({0}, {1});\n",
-				"loop": ""
-			}
+			"w", "%d.direction at power %n %",
+			"move", "move forward", "50",
+			{ "inc": "", "def": "", "setup": "", "work": "totobot.move({0}, {1} * 255 / 100);\n", "loop": "" }
 		],
 		[
-			"w",
-			"set motor %d.motorPort speed %d.motorSpeed",
-			"runMotor",
-			"LEFT_MOTOR",
-			0,
-			{
-				"inc": "",
-				"def": "",
-				"setup": "",
-				"work": "totobot.runMotor({0}, {1});\n",
-				"loop": ""
-			}
+			"w", "left wheel turns at power %n %, right wheel at power %n %",
+			"runMotors", "50", "50",
+			{ "inc": "", "def": "", "setup": "", "work": "totobot.runMotor(LEFT_MOTOR, {0} * 255 / 100);\ntotobot.runMotor(RIGHT_MOTOR, {1} * 255 / 100);\n", "loop": "" }
 		],
 		[
-			"w",
-			"%d.eye run effect %d.effect",
-			"setEyeEffect",
-			"right eye",
-			"none",
-			{
-				"inc": "",
-				"def": "",
-				"setup": "",
-				"work": "totobot.setEyeEffect({0}, {1});\n",
-				"loop": ""
-			}
+			"w", "stop moving",
+			"stopMotors",
+			{ "inc": "", "def": "", "setup": "", "work": "totobot.runMotor(LEFT_MOTOR, 0);\ntotobot.runMotor(RIGHT_MOTOR, 0);\n", "loop": "" }
+		],
+		[
+			"w", "set motor %d.motorPort operating range from %n to %n",
+			"setMotorRange", "left motor", "0", "255",
+			{ "inc": "", "def": "", "setup": "", "work": "totobot.setMotorRange({0}, {1}, {2});\n", "loop": "" }
+		],
+		[
+			"w", "%d.eye run effect %d.effect", 
+			"setEyeEffect", "right eye", "none",
+			{ "inc": "", "def": "", "setup": "", "work": "totobot.setEyeEffect({0}, {1});\n", "loop": "" }
 		]
 	],
 	"menus": {
-		"speed": ["SLOW", "FAST"],
-		"motorPort": ["LEFT_MOTOR", "RIGHT_MOTOR"],
+		"direction": ["move forward", "move backward", "turn left", "turn right"],
+		"motorPort": ["left motor", "right motor"],
 		"eye": ["right eye", "left eye"],
-		"motorSpeed": [255, 100, 50, 0, -50, -100, -255],
 		"effect": ["none", "snow", "matrix"]
 	},
 	"values": {
-		"SLOW": 127,
-		"FAST": 255,
-		"LEFT_MOTOR": 1,
-		"RIGHT_MOTOR": 2,
+		"move forward": 1,
+		"move backward": 2,
+		"turn left": 3,
+		"turn right": 4,
+		"left motor": 1,
+		"right motor": 2,
 		"right eye": 0,
 		"left eye": 1,
 		"none": 0,
@@ -140,17 +82,21 @@
 	"translators": {
 		"ru-RU": {
 			"Totobot Program": "Программа Тотобота",
-			"correction %n": "поправка %n",
-			"move forward %n sec %d.speed": "двигаться вперед %n сек., %d.speed",
-			"move backward %n sec %d.speed": "двигаться назад %n сек., %d.speed",
-			"turn left %n sec %d.speed": "поворачивать налево %n сек., %d.speed",
-			"turn right %n sec %d.speed": "поворачивать направо %n сек., %d.speed",
-			"set motor %d.motorPort speed %d.motorSpeed": "установить мотор %d.motorPort скорость %d.motorSpeed",
+			"move forward at power %n % for %n secs": "двигаться вперед на скорости %n % в течение %n секунд",
+			"move backward at power %n % for %n secs": "двигаться назад на скорости %n % в течение %n секунд",
+			"turn left at power %n % for %n secs": "повернуть налево на скорости %n % в течение %n секунд",
+			"turn right at power %n % for %n secs": "повернуть направо на скорости %n % в течение %n секунд",
+			"%d.direction at power %n %": "%d.direction на скорости %n %",
+			"left wheel turns at power %n %, right wheel at power %n %": "вращать левое колесо со скоростью %n %, правое колесо со скоростью %n %",
+			"stop moving": "остановить движение",
+			"set motor %d.motorPort operating range from %n to %n": "установить для мотора %d.motorPort рабочий диапазон от %n до %n",
 			"%d.eye run effect %d.effect": "%d.eye запустить эффект %d.effect",
-			"SLOW": "МЕДЛЕННО",
-			"FAST": "БЫСТРО",
-			"LEFT_MOTOR": "ЛЕВЫЙ_МОТОР",
-			"RIGHT_MOTOR": "ПРАВЫЙ_МОТОР",
+			"move forward": "двигаться вперед",
+			"move backward": "двигаться назад",
+			"turn left": "повернуть налево",
+			"turn right": "повернуть направо",
+			"left motor": "левый мотор",
+			"right motor": "правый мотор",
 			"right eye": "правый глаз",
 			"left eye": "левый глаз"
 		}

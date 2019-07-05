@@ -13,8 +13,9 @@
 
 Totobot totobot;
 
-short corr = 0;
 AF_DCMotor motors[] = {1, 2, 3, 4};
+byte motorsMin[] = {0, 0, 0, 0};
+byte motorsMax[] = {255, 255, 255, 255};
 
 void Totobot::init() {
 	reset();
@@ -50,50 +51,45 @@ void Totobot::reset() {
 		motors[i].run(RELEASE);
 }
 
-void Totobot::setCorrection(short value) {
-	corr = value;
+void Totobot::setMotorRange(byte number, byte min, byte max) {
+	int index = (number - 1) % (sizeof motors / sizeof motors[0]);
+	motorsMin[index] = min;
+	motorsMax[index] = max;
 }
-void Totobot::moveForward(int duration, byte speed) {
-	runMotor(LEFT_MOTOR, speed);
-	runMotor(RIGHT_MOTOR, speed);
- 	delay(duration * 1000);
-	runMotor(LEFT_MOTOR, 0);
-	runMotor(RIGHT_MOTOR, 0);
-}
-void Totobot::moveBackward(int duration, byte speed) {
-	runMotor(LEFT_MOTOR, -speed);
-	runMotor(RIGHT_MOTOR, -speed);
-	delay(duration * 1000);
-	runMotor(LEFT_MOTOR, 0);
-	runMotor(RIGHT_MOTOR, 0);
-}
-void Totobot::turnLeft(int duration, byte speed) {
-	runMotor(LEFT_MOTOR, -speed);
-	runMotor(RIGHT_MOTOR, speed);
-	delay(duration * 1000);
-	runMotor(LEFT_MOTOR, 0);
-	runMotor(RIGHT_MOTOR, 0);
-}
-void Totobot::turnRight(int duration, byte speed) {
-	runMotor(LEFT_MOTOR, speed);
-	runMotor(RIGHT_MOTOR, -speed);
-	delay(duration * 1000);
-	runMotor(LEFT_MOTOR, 0);
-	runMotor(RIGHT_MOTOR, 0);
-}
+
 void Totobot::runMotor(byte number, short speed) {
 	int index = (number - 1) % (sizeof motors / sizeof motors[0]);
 	if (index == LEFT_MOTOR - 1)
 		speed = -speed; // turn of the left motor by analogy with mBot for M1
-	int absSpeed = speed >= 0 ? speed : -speed;
-	if (index == LEFT_MOTOR - 1 && corr > 0 && absSpeed)
-		absSpeed -= corr;
-	if (index == RIGHT_MOTOR - 1 && corr < 0)
-		absSpeed += corr;
-	if (absSpeed < 0)
-		absSpeed = 0;
+	byte absSpeed = speed >= 0 ? speed : -speed;
+	absSpeed = map(absSpeed, 0, 255, motorsMin[index], motorsMax[index]);
 	motors[index].setSpeed(absSpeed);
 	motors[index].run(speed > 0 ? FORWARD : speed < 0 ? BACKWARD : RELEASE);
+}
+
+void Totobot::move(byte direction, byte speed) {
+	switch (direction) {
+	case MOVE_FORWARD: {
+		runMotor(LEFT_MOTOR, speed);
+		runMotor(RIGHT_MOTOR, speed);
+	} break;
+	case MOVE_BACKWARD: {
+		runMotor(LEFT_MOTOR, -speed);
+		runMotor(RIGHT_MOTOR, -speed);
+	} break;
+	case TURN_LEFT: {
+		runMotor(LEFT_MOTOR, -speed);
+		runMotor(RIGHT_MOTOR, speed);
+	} break;
+	case TURN_RIGHT: {
+		runMotor(LEFT_MOTOR, speed);
+		runMotor(RIGHT_MOTOR, -speed);
+	} break;
+	default: {
+		runMotor(LEFT_MOTOR, 0);
+		runMotor(RIGHT_MOTOR, 0);
+	}
+	}
 }
 
 void Totobot::setEyeEffect(byte eye, int effect) {

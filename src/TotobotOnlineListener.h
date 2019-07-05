@@ -20,9 +20,10 @@
 #define PULSEIN 37
 #define LEDMATRIX 41
 
-#define TO_MOTOR 90
-#define TO_SET_CORRECTION 91
-#define TO_EYE_EFFECT 92
+#define TOTO_MOTOR 90
+#define TOTO_MOTOR_RANGE 91
+#define TOTO_JOYSTICK 92
+#define TOTO_EYE_EFFECT 93
 
 class TotobotOnlineListener {
 public:

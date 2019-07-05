@@ -13,19 +13,22 @@
 		ULTRASONIC_ARDUINO: 36,
 		PULSEIN: 37,
 		LEDMATRIX: 41,
-		TO_MOTOR: 90,
-		TO_SET_CORRECTION: 91,
-		TO_EYE_EFFECT: 92
+		TOTO_MOTOR: 90,
+		TOTO_MOTOR_RANGE: 91,
+		TOTO_JOYSTICK: 92,
+		TOTO_EYE_EFFECT: 93
 	};
 
-	var speeds = {
-		SLOW: 127,
-		FAST: 255
-	};
+	var directions = {
+		"move forward": 1,
+		"move backward": 2,
+		"turn left": 3,
+		"turn right": 4
+	}
 
 	var motorPorts = {
-		LEFT_MOTOR: 1,
-		RIGHT_MOTOR: 2
+		"left motor": 1,
+		"right motor": 2
 	}
 
 	var eyes = {
@@ -42,32 +45,53 @@
 		responseValue();
 	};
 
-	ext.setCorrection = function (corr) {
-		runPackage(devices.TO_SET_CORRECTION, short2array(corr));
+	ext.moveForward = function (speed, duration) {
+		runPackage(devices.TOTO_JOYSTICK, short2array(speed * 255 / 100), short2array(speed * 255 / 100));
+		sleep(duration * 1000);
+		runPackage(devices.TOTO_JOYSTICK, short2array(0), short2array(0));
 	};
 
-	ext.moveForward = function (duration, speed) {
-		// TODO: device.send(...)
+	ext.moveBackward = function (speed, duration) {
+		runPackage(devices.TOTO_JOYSTICK, short2array(-speed * 255 / 100), short2array(-speed * 255 / 100));
+		sleep(duration * 1000);
+		runPackage(devices.TOTO_JOYSTICK, short2array(0), short2array(0));
 	};
 
-	ext.moveBackward = function (duration, speed) {
-		// TODO: device.send(...)
+	ext.turnLeft = function (speed, duration) {
+		runPackage(devices.TOTO_JOYSTICK, short2array(-speed * 255 / 100), short2array(speed * 255 / 100));
+		sleep(duration * 1000);
+		runPackage(devices.TOTO_JOYSTICK, short2array(0), short2array(0));
 	};
 
-	ext.turnLeft = function (duration, speed) {
-		// TODO: device.send(...)
+	ext.turnRight = function (speed, duration) {
+		runPackage(devices.TOTO_JOYSTICK, short2array(speed * 255 / 100), short2array(-speed * 255 / 100));
+		sleep(duration * 1000);
+		runPackage(devices.TOTO_JOYSTICK, short2array(0), short2array(0));
 	};
 
-	ext.turnRight = function (duration, speed) {
-		// TODO: device.send(...)
-	};
-
-	ext.runMotor = function (port, speed) {
-		if (typeof port == "string") {
-			port = motorPorts[port];
+	ext.move = function (direction, speed) {
+		if (typeof direction == "string") {
+			direction = directions[direction];
 		}
-		runPackage(devices.MOTOR, port, short2array(speed));
+		var leftSpeed = direction == 1 || direction == 4 ? speed : -speed;
+		var rightSpeed = direction == 1 || direction == 3 ? speed : -speed;
+		runPackage(devices.TOTO_JOYSTICK, short2array(leftSpeed * 255 / 100), short2array(rightSpeed * 255 / 100));
+	};
+
+	ext.runMotors = function (leftSpeed, rightSpeed) {
+		runPackage(devices.TOTO_JOYSTICK, short2array(leftSpeed * 255 / 100), short2array(rightSpeed * 255 / 100));
     };
+
+	ext.stopMotors = function () {
+		runPackage(devices.TOTO_JOYSTICK, short2array(0), short2array(0));
+	};
+
+	ext.setMotorRange = function (motorPort, min, max) {
+		if (typeof motorPort == "string") {
+			motorPort = motorPorts[motorPort];
+		}
+		runPackage(devices.TOTO_MOTOR_RANGE, motorPort, min, max);
+	};
 
 	ext.setEyeEffect = function (eye, effect) {
 		if (typeof eye == "string") {
@@ -76,8 +100,13 @@
 		if (typeof effect == "string") {
 			effect = effects[effect];
 		}
-		runPackage(devices.TO_EYE_EFFECT, eye, short2array(effect));
+		runPackage(devices.TOTO_EYE_EFFECT, eye, short2array(effect));
 	};
+
+	function sleep(delay) {
+		var start = new Date().getTime();
+		while (new Date().getTime() < start + delay);
+	}
 
 	function sendPackage(argList, type) {
 		var bytes = [0xff, 0x55, 0, 0, type];

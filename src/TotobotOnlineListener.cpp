@@ -69,15 +69,17 @@ void TotobotOnlineListener::parseData() {
 void TotobotOnlineListener::runModule(byte device) {
 	byte pin = readBuffer(6);
 	switch (device) {
-	case MOTOR:	case TO_MOTOR: {
+	case MOTOR: {
 		byte port = readBuffer(6);
 		short speed = readShort(7);
+		if (port == 9) // M1 (mBot)
+			speed = -speed;
 		totobot.runMotor(port, speed);
 	} break;
 	case JOYSTICK: {
-		int leftSpeed = readShort(6);
-		int rightSpeed = readShort(8);
-		totobot.runMotor(LEFT_MOTOR, leftSpeed);
+		short leftSpeed = readShort(6);
+		short rightSpeed = readShort(8);
+		totobot.runMotor(LEFT_MOTOR, -leftSpeed);
 		totobot.runMotor(RIGHT_MOTOR, rightSpeed);
 	} break;
 	case DIGITAL: {
@@ -90,11 +92,25 @@ void TotobotOnlineListener::runModule(byte device) {
 		byte val = readBuffer(7);
 		analogWrite(pin, val);
 	} break;
-	case TO_SET_CORRECTION: {
-		short corr = readShort(6);
-		totobot.setCorrection(corr);
-	}
-	case TO_EYE_EFFECT: {
+
+	case TOTO_MOTOR: {
+		byte number = readBuffer(6);
+		short speed = readShort(7);
+		totobot.runMotor(number, speed);
+	} break;
+	case TOTO_MOTOR_RANGE: {
+		byte number = readBuffer(6);
+		byte min = readBuffer(7);
+		byte max = readBuffer(8);
+		totobot.setMotorRange(number, min, max);
+	} break;
+	case TOTO_JOYSTICK: {
+		int leftSpeed = readShort(6);
+		int rightSpeed = readShort(8);
+		totobot.runMotor(LEFT_MOTOR, leftSpeed);
+		totobot.runMotor(RIGHT_MOTOR, rightSpeed);
+	} break;
+	case TOTO_EYE_EFFECT: {
 		byte eye = readBuffer(6);
 		short effect = readShort(7);
 		totobot.setEyeEffect(eye, effect);
