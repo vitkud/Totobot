@@ -8,6 +8,7 @@
 #include "TotobotFace.h"
 #include "TotobotOnlineListener.h"
 
+#include <EEPROM.h>
 #include "AFMotor.h"
 #include "TimerOne.h"
 
@@ -26,6 +27,21 @@ void Totobot::init() {
 	Timer1.attachInterrupt(timer);
 
 	TotobotOnlineListener::init();
+
+	// read/init EEPROM
+	if (EEPROM.read(0x0000) == EEPROM_MAGIC_NUMBER && EEPROM.read(0x0001) == EEPROM_DATA_SIZE) {
+		for (int i = 0; i < (sizeof motors / sizeof motors[0]); ++i) {
+			motorsMin[i] = EEPROM.read(EEPROM_MOTORS_BEGIN + i * 2);
+			motorsMax[i] = EEPROM.read(EEPROM_MOTORS_BEGIN + i * 2 + 1);
+		}
+	} else {
+		EEPROM.update(0x0000, EEPROM_MAGIC_NUMBER);
+		EEPROM.update(0x0001, EEPROM_DATA_SIZE);
+		for (int i = 0; i < (sizeof motors / sizeof motors[0]); ++i) {
+			EEPROM.update(EEPROM_MOTORS_BEGIN + i * 2, motorsMin[i]);
+			EEPROM.update(EEPROM_MOTORS_BEGIN + i * 2 + 1, motorsMax[i]);
+		}
+	}
 
 	pinMode(LED_PIN, OUTPUT);
 	digitalWrite(LED_PIN, HIGH);
@@ -50,6 +66,8 @@ void Totobot::setMotorRange(byte number, byte min, byte max) {
 	int index = (number - 1) % (sizeof motors / sizeof motors[0]);
 	motorsMin[index] = min;
 	motorsMax[index] = max;
+	EEPROM.update(EEPROM_MOTORS_BEGIN + index * 2, min);
+	EEPROM.update(EEPROM_MOTORS_BEGIN + index * 2 + 1, max);
 }
 
 void Totobot::runMotor(byte number, short speed) {
