@@ -25,17 +25,12 @@ void Totobot::init() {
 	Timer1.initialize(100000);
 	Timer1.attachInterrupt(timer);
 
+	TotobotOnlineListener::init();
+
 	pinMode(LED_PIN, OUTPUT);
 	digitalWrite(LED_PIN, HIGH);
 	delay(300);
 	digitalWrite(LED_PIN, LOW);
-
-	TotobotOnlineListener::init();
-
-	pinMode(BUZZER_PIN, OUTPUT);
-	digitalWrite(BUZZER_PIN, HIGH);
-	delay(100);
-	digitalWrite(BUZZER_PIN, LOW);
 }
 
 void Totobot::loop() {

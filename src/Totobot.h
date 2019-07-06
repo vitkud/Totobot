@@ -12,8 +12,7 @@ const char version[] = "0.1";
 const int analogs[] = {A0, A1, A2, A3, A4, A5, A6, A7};
 
 // Pins
-#define LED_PIN A2 //LED_BUILTIN
-#define BUZZER_PIN A1
+#define LED_PIN 2 //LED_BUILTIN
 
 // Constants
 #define LEFT_MOTOR 1
