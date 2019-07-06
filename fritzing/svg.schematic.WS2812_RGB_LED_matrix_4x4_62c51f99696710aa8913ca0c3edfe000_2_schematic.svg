@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generator: Adobe Illustrator 15.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" height="0.40000001in" xml:space="preserve" id="Layer_1" y="0px" width="0.80000001in" gorn="0" version="1.2" x="0px" viewBox="0 0 76.799999 38.399999" sodipodi:docname="WS2812_RGB_LED_matrix_4x4_62c51f99696710aa8913ca0c3edfe000_2_schematic.svg" inkscape:version="0.92.3 (2405546, 2018-03-11)"><sodipodi:namedview pagecolor="#ffffff" bordercolor="#666666" borderopacity="1" objecttolerance="10" gridtolerance="10" guidetolerance="10" inkscape:pageopacity="0" inkscape:pageshadow="2" inkscape:window-width="640" inkscape:window-height="480" id="namedview34" showgrid="false" inkscape:current-layer="Layer_1" />
+    <desc id="desc2">
+        <referenceFile>AMS1117_module_schematic_c.svg</referenceFile>
+    </desc>
+    <metadata id="metadata111">
+        <rdf:RDF>
+            <cc:Work rdf:about="">
+                <dc:format>image/svg+xml</dc:format>
+                <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+                <dc:title />
+            </cc:Work>
+        </rdf:RDF>
+    </metadata>
+    <defs id="defs109">
+        
+    
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+
+            
+
+            
+
+            
+
+            
+
+            
+            
+
+            
+
+        </defs>
+    <g id="schematic" ><line style="fill:none;stroke:#555555;stroke-width:0.95999992;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" x1="67.679993" y1="28.799999" y2="28.799999" x2="76.31469" gorn="0.3.0.0" id="connector7pin" /><rect style="fill:none;stroke:none;stroke-width:0" x="76.785103" gorn="0.3.0.1" width="0.019189401" id="connector7terminal" y="28.799084" height="0.00192" /><line style="fill:none;stroke:#555555;stroke-width:0.95999992;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" x1="67.685295" y1="19.199997" y2="19.199997" x2="76.319992" gorn="0.3.0.2" id="connector6pin" /><rect style="fill:none;stroke:none;stroke-width:0" x="76.790398" gorn="0.3.0.3" width="0.019189401" id="connector6terminal" y="19.199081" height="0.00192" /><line style="fill:none;stroke:#555555;stroke-width:0.95999992;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" x1="67.680176" y1="9.5983782" y2="9.6016245" x2="76.314575" gorn="0.3.0.4" id="connector5pin" /><rect style="fill:none;stroke:none;stroke-width:0" x="76.785202" gorn="0.3.0.5" width="0.019189499" id="connector5terminal" y="9.5990839" height="0.00192721" /><line style="fill:none;stroke:#555555;stroke-width:0.95999992;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" x1="67.679993" y1="28.799999" y2="28.799999" x2="76.31469" gorn="0.3.0.6" id="connector4pin" /><rect style="fill:none;stroke:none;stroke-width:0" x="76.785103" gorn="0.3.0.7" width="0.019189401" id="connector4terminal" y="28.799084" height="0.00192" /><line style="fill:none;stroke:#555555;stroke-width:0.95999998;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" x1="0.47999996" y1="28.799999" y2="28.799999" x2="9.1172037" gorn="0.3.0.8" id="connector3pin" /><rect style="fill:none;stroke:none;stroke-width:0" x="-0.0095972298" gorn="0.3.0.9" width="0.0191944" id="connector3terminal" y="28.799084" height="0.00192" /><line style="fill:none;stroke:#555555;stroke-width:0.95999998;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" x1="0.4827812" y1="19.199997" y2="19.199997" x2="9.1199999" gorn="0.3.0.10" id="connector2pin" /><rect style="fill:none;stroke:none;stroke-width:0" x="-0.00681601" gorn="0.3.0.11" width="0.0191944" id="connector2terminal" y="19.199081" height="0.00192" /><line style="fill:none;stroke:#555555;stroke-width:0.95999998;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" x1="0.48278126" y1="9.5999994" y2="9.5999994" x2="9.1199999" gorn="0.3.0.12" id="connector1pin" /><rect style="fill:none;stroke:none;stroke-width:0" x="-0.0068159499" gorn="0.3.0.13" width="0.0191944" id="connector1terminal" y="9.5990839" height="0.00192" /><line style="fill:none;stroke:#555555;stroke-width:0.95999998;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none" x1="0.47999996" y1="28.799999" y2="28.799999" x2="9.1172037" gorn="0.3.0.14" id="connector0pin" /><rect style="fill:none;stroke:none;stroke-width:0" x="-0.0095972298" gorn="0.3.0.15" width="0.0191944" id="connector0terminal" y="28.799084" height="0.00192" /><rect style="fill:none;stroke:none;stroke-width:0" x="-0.0068159499" gorn="0.3.0.16" width="0.0191944" id="rect33" y="9.5990839" height="0.00192" /><text style="font-size:4.66666651px;font-family:DroidSans;fill:#555555" font-size="4.5" x="12.016596" gorn="0.3.0.17" id="text86" y="30.414577">GND</text>
+<text style="font-size:4.66666651px;font-family:DroidSans;fill:#555555" font-size="4.5" x="11.731585" gorn="0.3.0.18" id="text88" y="20.919235">DIN</text>
+<text style="font-size:4.66666651px;font-family:DroidSans;fill:#555555" font-size="4.5" x="53.808174" gorn="0.3.0.19" id="text94" y="30.414577">GND</text>
+<text style="font-size:4.66666651px;font-family:DroidSans;fill:#555555" font-size="4.5" x="53.199776" gorn="0.3.0.20" id="text96" y="20.842899">DOUT</text>
+<text style="font-size:6px;font-family:DroidSans" font-size="6" x="26.161228" gorn="0.3.0.21" id="text101" y="16.22694">WS8212 </text>
+<rect style="fill:none;stroke:#000000;stroke-width:1.24799991;stroke-linecap:butt;stroke-miterlimit:4;stroke-dasharray:none" x="10.223999" gorn="0.3.0.22" width="56.351997" id="part_symbol" y="0.62400126" height="37.151997" /><text style="font-size:4.66666651px;font-family:DroidSans;fill:#555555" font-size="4.5" x="12.069005" gorn="0.3.0.23" id="text88-2" y="11.051652">VCC</text>
+<text style="font-size:4.66666651px;font-family:DroidSans;fill:#555555" font-size="4.5" x="54.269581" gorn="0.3.0.24" id="text88-2-8" y="11.051652">VCC</text>
+</g>
+</svg>
