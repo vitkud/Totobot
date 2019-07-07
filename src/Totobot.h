@@ -15,9 +15,10 @@ const int analogs[] = {A0, A1, A2, A3, A4, A5, A6, A7};
 #define LED_PIN 2 //LED_BUILTIN
 
 // EEPROM
+#define EEPROM_BEGIN 0x0200
 #define EEPROM_MAGIC_NUMBER 0x44
-#define EEPROM_MOTORS_BEGIN 0x0002
 #define EEPROM_DATA_SIZE 8
+#define EEPROM_MOTORS_BEGIN 0x0202
 
 // Constants
 #define LEFT_MOTOR 1

@@ -29,14 +29,15 @@ void Totobot::init() {
 	TotobotOnlineListener::init();
 
 	// read/init EEPROM
-	if (eeprom_read_byte((byte *)0x0000) == EEPROM_MAGIC_NUMBER && eeprom_read_byte((byte *)0x0001) == EEPROM_DATA_SIZE) {
+	if (eeprom_read_byte((byte *)EEPROM_BEGIN) == EEPROM_MAGIC_NUMBER &&
+	    eeprom_read_byte((byte *)EEPROM_BEGIN + 1) == EEPROM_DATA_SIZE) {
 		for (int i = 0; i < (sizeof motors / sizeof motors[0]); ++i) {
 			motorsMin[i] = eeprom_read_byte((byte *)EEPROM_MOTORS_BEGIN + i * 2);
 			motorsMax[i] = eeprom_read_byte((byte *)EEPROM_MOTORS_BEGIN + i * 2 + 1);
 		}
 	} else {
-		eeprom_update_byte((byte *)0x0000, EEPROM_MAGIC_NUMBER);
-		eeprom_update_byte((byte *)0x0001, EEPROM_DATA_SIZE);
+		eeprom_update_byte((byte *)EEPROM_BEGIN, EEPROM_MAGIC_NUMBER);
+		eeprom_update_byte((byte *)EEPROM_BEGIN + 1, EEPROM_DATA_SIZE);
 		for (int i = 0; i < (sizeof motors / sizeof motors[0]); ++i) {
 			eeprom_update_byte((byte *)EEPROM_MOTORS_BEGIN + i * 2, motorsMin[i]);
 			eeprom_update_byte((byte *)EEPROM_MOTORS_BEGIN + i * 2 + 1, motorsMax[i]);
