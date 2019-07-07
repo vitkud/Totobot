@@ -1,6 +1,14 @@
 # Totobot
 This is an [mBlock 3](http://www.mblock.cc/mblock-software/) extension.
 
+## Pinout
+* D4, D7, D8, D12 - Motor Shield (74HC595)
+  * D11 - M1 (LEFT_MOTOR)
+  * D13 - M2 (RIGHT_MOTOR)
+  * D5 - M3
+  * D6 - M4
+* A0 - Face
+
 ## EEPROM
 
 * 0x0200 - magic number (0x44)
