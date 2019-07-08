@@ -103,6 +103,10 @@
 		runPackage(devices.TOTO_EYE_EFFECT, eye, short2array(effect));
 	};
 
+	/**
+	 * @deprecated
+	 * @param {number} delay
+	 */
 	function sleep(delay) {
 		var start = new Date().getTime();
 		while (new Date().getTime() < start + delay);

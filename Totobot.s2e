@@ -14,26 +14,29 @@
 			"runArduino",
 			{ "src": "Totobot", "inc": "#include \"Totobot.h\"\n", "def": "", "setup": "totobot.init();\n", "loop": "totobot.loop();\n" }
 		],
-		[
-			"w", "move forward at power %n % for %n secs",
-			"moveForward", "50", "1",
-			{ "inc": "", "def": "", "setup": "", "work": "totobot.move(MOVE_FORWARD, {0} * 255 / 100);\n_delay({1});\ntotobot.move(MOVE_FORWARD, 0);\n", "loop": "" }
-		],
-		[
-			"w", "move backward at power %n % for %n secs",
-			"moveBackward", "50", "1",
-			{ "inc": "", "def": "", "setup": "", "work": "totobot.move(MOVE_BACKWARD, {0} * 255 / 100);\n_delay({1});\ntotobot.move(MOVE_BACKWARD, 0);\n", "loop": "" }
-		],
-		[
-			"w", "turn left at power %n % for %n secs",
-			"turnLeft", "50", "1",
-			{ "inc": "", "def": "", "setup": "", "work": "totobot.move(TURN_LEFT, {0} * 255 / 100);\n_delay({1});\ntotobot.move(TURN_LEFT, 0);\n", "loop": "" }
-		],
-		[
-			"w", "turn right at power %n % for %n secs",
-			"turnRight", "50", "1",
-			{ "inc": "", "def": "", "setup": "", "work": "totobot.move(TURN_RIGHT, {0} * 255 / 100);\n_delay({1});\ntotobot.move(TURN_RIGHT, 0);\n", "loop": "" }
-		],
+
+		["-"],
+
+		// [
+		// 	"w", "move forward at power %n % for %n secs",
+		// 	"moveForward", "50", "1",
+		// 	{ "inc": "", "def": "", "setup": "", "work": "totobot.move(MOVE_FORWARD, {0} * 255 / 100);\n_delay({1});\ntotobot.move(MOVE_FORWARD, 0);\n", "loop": "" }
+		// ],
+		// [
+		// 	"w", "move backward at power %n % for %n secs",
+		// 	"moveBackward", "50", "1",
+		// 	{ "inc": "", "def": "", "setup": "", "work": "totobot.move(MOVE_BACKWARD, {0} * 255 / 100);\n_delay({1});\ntotobot.move(MOVE_BACKWARD, 0);\n", "loop": "" }
+		// ],
+		// [
+		// 	"w", "turn left at power %n % for %n secs",
+		// 	"turnLeft", "50", "1",
+		// 	{ "inc": "", "def": "", "setup": "", "work": "totobot.move(TURN_LEFT, {0} * 255 / 100);\n_delay({1});\ntotobot.move(TURN_LEFT, 0);\n", "loop": "" }
+		// ],
+		// [
+		// 	"w", "turn right at power %n % for %n secs",
+		// 	"turnRight", "50", "1",
+		// 	{ "inc": "", "def": "", "setup": "", "work": "totobot.move(TURN_RIGHT, {0} * 255 / 100);\n_delay({1});\ntotobot.move(TURN_RIGHT, 0);\n", "loop": "" }
+		// ],
 		[
 			"w", "%d.direction at power %n %",
 			"move", "move forward", "50",
@@ -54,6 +57,9 @@
 			"setMotorRange", "left motor", "0", "255",
 			{ "inc": "", "def": "", "setup": "", "work": "totobot.setMotorRange({0}, {1}, {2});\n", "loop": "" }
 		],
+
+		["-"],
+
 		[
 			"w", "%d.eye run effect %d.effect", 
 			"setEyeEffect", "right eye", "none",
@@ -82,10 +88,10 @@
 	"translators": {
 		"ru-RU": {
 			"Totobot Program": "Программа Тотобота",
-			"move forward at power %n % for %n secs": "двигаться вперед на скорости %n % в течение %n секунд",
-			"move backward at power %n % for %n secs": "двигаться назад на скорости %n % в течение %n секунд",
-			"turn left at power %n % for %n secs": "повернуть налево на скорости %n % в течение %n секунд",
-			"turn right at power %n % for %n secs": "повернуть направо на скорости %n % в течение %n секунд",
+			// "move forward at power %n % for %n secs": "двигаться вперед на скорости %n % в течение %n секунд",
+			// "move backward at power %n % for %n secs": "двигаться назад на скорости %n % в течение %n секунд",
+			// "turn left at power %n % for %n secs": "повернуть налево на скорости %n % в течение %n секунд",
+			// "turn right at power %n % for %n secs": "повернуть направо на скорости %n % в течение %n секунд",
 			"%d.direction at power %n %": "%d.direction на скорости %n %",
 			"left wheel turns at power %n %, right wheel at power %n %": "вращать левое колесо со скоростью %n %, правое колесо со скоростью %n %",
 			"stop moving": "остановить движение",
