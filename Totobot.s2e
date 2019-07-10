@@ -61,6 +61,18 @@
 		["-"],
 
 		[
+			"w", "LED panel show image %m.drawFace",
+			"ledShowImage", "        ",
+			{ "inc": "", "def": "", "setup": "", "work": "totobot.ledShowImage({0});\n", "loop": "" }
+		],
+
+		[
+			"w", "LED panel show image %m.drawFace x: %n y: %n",
+			"ledShowImageXY", "        ", 0, 0,
+			{ "inc": "", "def": "", "setup": "", "work": "totobot.ledShowImage({0}, {1}, {2});\n", "loop": "" }
+		],
+
+		[
 			"w", "%d.eye run effect %d.effect", 
 			"setEyeEffect", "right eye", "none",
 			{ "inc": "", "def": "", "setup": "", "work": "totobot.setEyeEffect({0}, {1});\n", "loop": "" }

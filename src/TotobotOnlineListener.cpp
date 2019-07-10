@@ -92,6 +92,29 @@ void TotobotOnlineListener::runModule(byte device) {
 		byte val = readBuffer(7);
 		analogWrite(pin, val);
 	} break;
+	case LEDMATRIX: {
+		// ignore pin/port
+		byte action = readBuffer(7);
+		if (action == 1) {
+			// int px = buffer[8];
+			// int py = buffer[9];
+			// int len = readBuffer(10);
+			// char *s = readString(11, len);
+			// ledMx.drawStr(px, py, s);
+		} else if (action == 2) {
+			int px = readBuffer(8);
+			int py = readBuffer(9);
+			byte *bytes = readBytes(10, 16);
+			totobot.ledShowImage(bytes, 16, px, py);
+		} else if (action == 3) {
+			// int point = readBuffer(8);
+			// int hours = readBuffer(9);
+			// int minutes = readBuffer(10);
+			// ledMx.showClock(hours, minutes, point);
+		} else if (action == 4) {
+			// ledMx.showNum(readFloat(8), 3);
+		}
+	} break;
 
 	case TOTO_MOTOR: {
 		byte number = readBuffer(6);
@@ -191,6 +214,28 @@ long TotobotOnlineListener::readLong(int index) {
 	union4.byteVal[2] = readBuffer(index + 2);
 	union4.byteVal[3] = readBuffer(index + 3);
 	return union4.longVal;
+}
+
+char _receiveStr[20] = {};
+uint8_t _receiveBytes[16] = {};
+
+char* TotobotOnlineListener::readString(int index, int len) {
+	if (len >= sizeof _receiveStr / sizeof *_receiveStr)
+		len = sizeof _receiveStr / sizeof *_receiveStr - 1;
+	for (int i = 0; i < len; i++) {
+		_receiveStr[i] = readBuffer(index + i);
+	}
+	_receiveStr[len] = '\0';
+	return _receiveStr;
+}
+
+byte* TotobotOnlineListener::readBytes(int index, int len) {
+	if (len > sizeof _receiveBytes / sizeof *_receiveBytes)
+		len = sizeof _receiveBytes / sizeof *_receiveBytes;
+	for (int i = 0; i < len; i++) {
+		_receiveBytes[i] = readBuffer(index + i);
+	}
+	return _receiveBytes;
 }
 
 int TotobotOnlineListener::readSerial() {

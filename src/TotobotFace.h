@@ -20,6 +20,7 @@ public:
 	static void init();
 	static void loop();
 
+	static void showImage(byte *bytes, byte size, byte x, byte y);
 	static void setEyeEffect(byte eye, short effect);
 
 private:

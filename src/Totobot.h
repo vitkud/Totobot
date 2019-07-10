@@ -36,6 +36,9 @@ public:
 	static void runMotor(byte number, short speed);
 	static void move(byte direction, byte speed);
 
+	static void ledShowImage(byte *bytes, byte size, byte x, byte y);
+	static void ledShowImage(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7,
+		byte b8, byte b9, byte bA, byte bB, byte bC, byte bD, byte bE, byte bF, byte x = 0, byte y = 0);
 	static void setEyeEffect(byte eye, int effect);
 
 private:

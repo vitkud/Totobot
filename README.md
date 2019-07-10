@@ -17,3 +17,9 @@ This is an [mBlock 3](http://www.mblock.cc/mblock-software/) extension.
 * 0x0204, 0x0205 - operating range for M2 (RIGHT_MOTOR)
 * 0x0206, 0x0207 - operating range for M3
 * 0x0208, 0x0209 - operating range for M4
+
+## Credits
+The app uses:
+* [FastLED](https://github.com/FastLED/FastLED) 3.2.9
+* [Adafruit Motor Shield library](https://github.com/adafruit/Adafruit-Motor-Shield-library) 1.0.1
+* [TimerOne](http://playground.arduino.cc/Code/Timer1) 1.1 ([github.com](https://github.com/PaulStoffregen/TimerOne))

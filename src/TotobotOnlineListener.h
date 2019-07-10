@@ -39,6 +39,8 @@ private:
 	static float readFloat(int index);
 	static short readShort(int index);
 	static long readLong(int index);
+	static char* readString(int index, int len);
+	static byte* readBytes(int index, int len);
 
 	static int readSerial();
 	static void writeSerial(byte c);

@@ -93,6 +93,14 @@
 		runPackage(devices.TOTO_MOTOR_RANGE, motorPort, min, max);
 	};
 
+	ext.ledShowImage = function (bytes) {
+		runPackage(devices.LEDMATRIX, 1, 2, 0, 0, bytes);
+	};
+
+	ext.ledShowImageXY = function (bytes, x, y) {
+		runPackage(devices.LEDMATRIX, 1, 2, x, y, bytes);
+	};
+
 	ext.setEyeEffect = function (eye, effect) {
 		if (typeof eye == "string") {
 			eye = eyes[eye];

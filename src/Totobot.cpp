@@ -105,6 +105,15 @@ void Totobot::move(byte direction, byte speed) {
 	}
 	}
 }
+void Totobot::ledShowImage(byte *bytes, byte size, byte x, byte y) {
+	TotobotFace::showImage(bytes, size, x, y);
+}
+
+void Totobot::ledShowImage(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5, byte b6, byte b7,
+		byte b8, byte b9, byte bA, byte bB, byte bC, byte bD, byte bE, byte bF, byte x, byte y) {
+	byte bytes[16] = {b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, bA, bB, bC, bD, bE, bF};
+	TotobotFace::showImage(bytes, sizeof bytes / sizeof *bytes, x, y);
+}
 
 void Totobot::setEyeEffect(byte eye, int effect) {
 	TotobotFace::setEyeEffect(eye, effect);

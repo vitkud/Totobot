@@ -132,3 +132,17 @@ void TotobotFace::updateEffect(byte eye, short effect, boolean loadingFlag) {
 	default: testRoutine(eye, loadingFlag); break;
 	}
 }
+
+void TotobotFace::showImage(byte *bytes, byte size, byte x, byte y) {
+	//drawPixelXY(0, 2, 2, )
+	for (int i = 0; i < size / 2; ++i) {
+		for (int j = 0; j < 4; ++j) {
+			int d = (bytes[i * 2] >> j * 2 & 1) + 1;
+			int r = bytes[i * 2] >> j * 2 + 1 & 1;
+			int g = bytes[i * 2 + 1] >> j * 2 + 1 & 1;
+			int b = bytes[i * 2 + 1] >> j * 2 & 1;
+			drawPixelXY((x + i) / 4, (x + i) % 4, y + j, (r * 0x7f0000 + g * 0x007f00 + b * 0x00007f) * d);
+		}
+	}
+	FastLED.show();
+}
