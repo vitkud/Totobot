@@ -115,6 +115,10 @@ void Totobot::ledShowImage(byte b0, byte b1, byte b2, byte b3, byte b4, byte b5,
 	TotobotFace::showImage(bytes, sizeof bytes / sizeof *bytes, x, y);
 }
 
+void Totobot::showString(const char *str, int8_t x, int8_t y) {
+	TotobotFace::showString(str, x, y);
+}
+
 void Totobot::setEyeEffect(byte eye, int effect) {
 	TotobotFace::setEyeEffect(eye, effect);
 }

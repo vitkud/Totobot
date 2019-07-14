@@ -96,16 +96,16 @@ void TotobotOnlineListener::runModule(byte device) {
 		// ignore pin/port
 		byte action = readBuffer(7);
 		if (action == 1) {
-			// int px = buffer[8];
-			// int py = buffer[9];
-			// int len = readBuffer(10);
-			// char *s = readString(11, len);
-			// ledMx.drawStr(px, py, s);
+			int px = buffer[8];
+			int py = buffer[9];
+			int len = readBuffer(10);
+			char *s = readString(11, len);
+			totobot.showString(s, px, py - 7);
 		} else if (action == 2) {
 			int px = readBuffer(8);
 			int py = readBuffer(9);
 			byte *bytes = readBytes(10, 16);
-			totobot.ledShowImage(bytes, 16, px, py);
+			totobot.ledShowImage(bytes, 16, px / 2, py / 2);
 		} else if (action == 3) {
 			// int point = readBuffer(8);
 			// int hours = readBuffer(9);

@@ -23,3 +23,4 @@ The app uses:
 * [FastLED](https://github.com/FastLED/FastLED) 3.2.9
 * [Adafruit Motor Shield library](https://github.com/adafruit/Adafruit-Motor-Shield-library) 1.0.1
 * [TimerOne](http://playground.arduino.cc/Code/Timer1) 1.1 ([github.com](https://github.com/PaulStoffregen/TimerOne))
+* [Arduboy-TinyFont](https://github.com/yinkou/Arduboy-TinyFont)

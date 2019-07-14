@@ -4,6 +4,7 @@
 
 #include "TotobotFace.h"
 #include "Totobot.h"
+#include "TotobotTinyFont.h"
 
 #include "FastLED.h"
 
@@ -137,11 +138,62 @@ void TotobotFace::showImage(byte *bytes, byte size, byte x, byte y) {
 	//drawPixelXY(0, 2, 2, )
 	for (int i = 0; i < size / 2; ++i) {
 		for (int j = 0; j < 4; ++j) {
-			int d = (bytes[i * 2] >> j * 2 & 1) + 1;
+			int d = bytes[i * 2] >> j * 2 & 1;
 			int r = bytes[i * 2] >> j * 2 + 1 & 1;
 			int g = bytes[i * 2 + 1] >> j * 2 + 1 & 1;
 			int b = bytes[i * 2 + 1] >> j * 2 & 1;
-			drawPixelXY((x + i) / 4, (x + i) % 4, y + j, (r * 0x7f0000 + g * 0x007f00 + b * 0x00007f) * d);
+			drawPixelXY((x + i) / 4, (x + i) % 4, y + j, (d + r + g + b) * 40);
+			// drawPixelXY((x + i) / 4, (x + i) % 4, y + j, (r * 0x7f0000 + g * 0x007f00 + b * 0x00007f) * (d + 1));
+		}
+	}
+	FastLED.show();
+}
+
+const int separatorWidth = 1;
+const int displayWidth = EYE_WIDTH + separatorWidth + EYE_WIDTH;
+const int displayHeight = EYE_HEIGHT;
+// const int fontWidth = 4;
+// const int fontHeight = 4;
+const int charWidth = 5;
+
+void setPixel(byte x, byte y, CRGB color) {
+	if (x < EYE_WIDTH) {
+		drawPixelXY(0, x, 3 - y, color);
+	} else if (x >= EYE_WIDTH + separatorWidth) {
+		drawPixelXY(1, x - (EYE_WIDTH + separatorWidth), 3 - y, color);
+	}
+}
+
+bool getBit(byte byteData, byte bitNumber) {
+	return (byteData >> bitNumber) & 1;
+}
+
+void TotobotFace::showString(const char *str, int8_t x, int8_t y) {
+	int strLen = strlen(str);
+	int curChar = -1;
+	byte charData[4];
+	for (int cx = 0; cx < displayWidth; ++cx) {
+		if (cx < x || cx >= x + strLen * charWidth) {
+			curChar = -1;
+		} else {
+			byte c = str[(cx - x) / charWidth];
+			if (c != curChar) {
+				for (int i = 0; i < sizeof charData / sizeof *charData; ++i) {
+					charData[i] = pgm_read_byte(&font4x4[(c / 2) * 4 + i]) >> (c % 2 == 0 ? 4 : 0);
+				}
+				curChar = c;
+			}
+		}
+		for (int cy = 0; cy < displayHeight; ++cy) {
+			if (curChar == -1 || cy < y || cy >= y + 4) {
+				setPixel(cx, cy, 0x000000);
+			} else {
+				byte bit = (cx - x) % charWidth;
+				if (bit > 3)
+					setPixel(cx, cy, 0x000000);
+				else
+					setPixel(cx, cy, getBit(charData[cy - y], 3 - bit) ? 0x00ff00 : 0x000000);
+			}
 		}
 	}
 	FastLED.show();

@@ -5,7 +5,7 @@
 
 // Eyes
 #define EYE_PIN A0
-#define EYE_BRIGHTNESS 3 // (0-255)
+#define EYE_BRIGHTNESS 8 // (0-255)
 #define EYE_CURRENT_LIMIT 600
 #define EYE_WIDTH 4
 #define EYE_HEIGHT 4
@@ -21,6 +21,7 @@ public:
 	static void loop();
 
 	static void showImage(byte *bytes, byte size, byte x, byte y);
+	static void showString(const char *str, int8_t x, int8_t y);
 	static void setEyeEffect(byte eye, short effect);
 
 private:
